@@ -1,13 +1,15 @@
 import 'dotenv/config';
-import { ColonyEvents } from '@colony/sdk';
+import { ColonyEventManager } from '@colony/sdk';
 import { Client, Intents } from 'discord.js';
 import { providers } from 'ethers';
 import fetch from 'node-fetch';
 
+import { ColonyEvents } from './events';
+
 const { DISCORD_TOKEN } = process.env;
 
 const provider = new providers.JsonRpcProvider('https://xdai.colony.io/rpc2/');
-const colonyEvents = new ColonyEvents(provider);
+const eventManager = new ColonyEventManager(provider);
 
 // Create a new client instance
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
@@ -17,24 +19,24 @@ client.once('ready', async () => {
   console.info('Ready!');
   const chan = client.channels.cache.get('976078964583972924');
 
-  const domainAdded = colonyEvents.createMultiFilter(
-    colonyEvents.eventSources.Colony,
-    'DomainAdded(address,uint256)',
+  const domainAdded = eventManager.createMultiFilter(
+    eventManager.eventSources.Colony,
+    ColonyEvents.DomainAdded.signature,
     '0x6899e0775f56e078C4172B86D411a0623ccCaB24',
   );
 
-  const domainMetadata = colonyEvents.createMultiFilter(
-    colonyEvents.eventSources.Colony,
-    'DomainMetadata(address,uint256,string)',
+  const domainMetadata = eventManager.createMultiFilter(
+    eventManager.eventSources.Colony,
+    ColonyEvents.DomainMetadata.signature,
     '0x6899e0775f56e078C4172B86D411a0623ccCaB24',
   );
 
   let i = 0;
-  colonyEvents.provider.on('block', async (no) => {
+  eventManager.provider.on('block', async (no) => {
     i += 1;
     // Only get events every 5 blocks to debounce this a little bit
     if (i === 4) {
-      const events = await colonyEvents.getMultiEvents(
+      const events = await eventManager.getMultiEvents(
         [domainAdded, domainMetadata],
         {
           fromBlock: no - i,
