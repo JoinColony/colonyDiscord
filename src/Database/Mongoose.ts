@@ -1,6 +1,8 @@
 import { ColonyEvent } from './Schema/colonyEvent';
 
-/** Fetches all colonyAddress/eventName registered in database */
+/** Fetches all colonyAddress/eventName registered in database
+ * @returns array of "colonyAddress/eventName"
+ */
 async function fetchColonyEvents(): Promise<string[]> {
   const colonyEvents = await ColonyEvent.find();
   if (colonyEvents) {
@@ -13,7 +15,9 @@ async function fetchColonyEvents(): Promise<string[]> {
   return [];
 }
 
-/** Fetches all "discordServer/discordChannel" combinations per "colonyAddress/eventName" */
+/** Fetches all "discordServer/discordChannel" combinations per "colonyAddress/eventName"
+ * @returns array of "discordServer/discordChannel"
+ */
 async function fetchDiscordChannelsForColonyEvent(
   colonyAddress: string,
   eventName: string,
