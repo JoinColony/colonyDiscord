@@ -1,8 +1,7 @@
 import 'dotenv/config';
 import { ColonyEventManager } from '@colony/sdk';
-import { Client, Intents } from 'discord.js';
+import { Client, Intents, Message } from 'discord.js';
 import { providers } from 'ethers';
-import fetch from 'node-fetch';
 
 import { ColonyEvents } from './events';
 
@@ -19,15 +18,9 @@ client.once('ready', async () => {
   console.info('Ready!');
   const chan = client.channels.cache.get('976078964583972924');
 
-  const domainAdded = eventManager.createMultiFilter(
+  const eventList = eventManager.createMultiFilter(
     eventManager.eventSources.Colony,
-    ColonyEvents.DomainAdded.signature,
-    '0x6899e0775f56e078C4172B86D411a0623ccCaB24',
-  );
-
-  const domainMetadata = eventManager.createMultiFilter(
-    eventManager.eventSources.Colony,
-    ColonyEvents.DomainMetadata.signature,
+    [ColonyEvents.DomainAdded.signature, ColonyEvents.DomainMetadata.signature],
     '0x6899e0775f56e078C4172B86D411a0623ccCaB24',
   );
 
@@ -36,47 +29,40 @@ client.once('ready', async () => {
     i += 1;
     // Only get events every 5 blocks to debounce this a little bit
     if (i === 4) {
-      const events = await eventManager.getMultiEvents(
-        [domainAdded, domainMetadata],
-        {
-          fromBlock: no - i,
-          toBlock: no,
-        },
-      );
+      i = 0;
+      const events = await eventManager.getMultiEvents([eventList], {
+        fromBlock: no - 4,
+        toBlock: no,
+      });
       if (events.length) {
         if (chan?.isText()) {
-          events.forEach(async (event) => {
-            if (event.data.metadata) {
-              console.info(event.data.metadata);
-              chan.send(
-                `We have domain metadata (IPFS CID: ${event.data.metadata}), fetching it right now...`,
-              );
-              try {
-                // TODO: this doesn't work yet as IPFS takes too long to propagate. Add retries (will be done in ColonySDK)
-                const res = await fetch(
-                  `https://cloudflare-ipfs.com/ipfs/${event.data.metadata}`,
-                );
-
-                const { domainName, domainColor, domainPurpose } =
-                  // TODO: type properly (will be done in ColonySDK)
-                  (await res.json()) as any;
-                chan.send(
-                  `We have domain metadata: ${domainName}, ${domainColor}, ${domainPurpose}`,
-                );
-              } catch {
-                console.error(
-                  `Failed to fetch IPFS data in time for CID ${event.data.metadata}`,
-                );
-              }
-            } else {
-              chan.send(
-                `A domain with id ${events[0].data.domainId} was created on Colony ${events[0].address}`,
+          let message: Message<boolean> | undefined;
+          const domainAddedEvent = events.find(
+            ({ eventName }) => eventName === ColonyEvents.DomainAdded.signature,
+          );
+          const domainMetadataEvent = events.find(
+            ({ eventName }) =>
+              eventName === ColonyEvents.DomainMetadata.signature,
+          );
+          if (domainAddedEvent) {
+            message = await chan.send(
+              `A domain with id ${domainAddedEvent.data.domainId} was created on Colony ${domainAddedEvent.address}`,
+            );
+          }
+          if (domainMetadataEvent?.getMetadata && message) {
+            await message.edit(
+              `A domain with id ${domainMetadataEvent.data.domainId} was created on Colony ${domainMetadataEvent.address}. Fetching its metadata...`,
+            );
+            const metadata = await domainMetadataEvent.getMetadata();
+            if ('domainName' in metadata) {
+              const { domainName, domainColor, domainPurpose } = metadata;
+              message.edit(
+                `A domain with id ${domainMetadataEvent.data.domainId} was created on Colony ${domainMetadataEvent.address}. Its name is ${domainName}, the color is ${domainColor} and the purpose given was: ${domainPurpose}`,
               );
             }
-          });
+          }
         }
       }
-      i = 0;
     }
   });
 });
