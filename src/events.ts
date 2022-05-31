@@ -107,6 +107,7 @@ export const ColonyNetworkEvents = createEventMap('ColonyNetwork', {
   },
 });
 
+/* eslint-disable max-len */
 export const ColonyEvents = createEventMap('Colony', {
   // Common Colony events
   DomainAdded: {
@@ -304,6 +305,7 @@ export const ColonyEvents = createEventMap('Colony', {
     signature: 'MetaTransactionExecuted(address,address,bytes)',
   },
 });
+/* eslint-enable max-len */
 
 export const OneTxPaymentEvents = createEventMap('OneTxPayment', {
   OneTxPaymentMade: {
