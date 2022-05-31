@@ -118,6 +118,10 @@ export const ColonyEvents = createEventMap('Colony', {
   ColonyInitialised: {
     signature: 'ColonyInitialised(address,address,address)',
   },
+  ColonyFundsMovedBetweenFundingPots: {
+    signature:
+      'ColonyFundsMovedBetweenFundingPots(address,uint256,uint256,uint256,address)',
+  },
   ColonyFundsClaimed: {
     signature: 'ColonyFundsClaimed(address,address,uint256,uint256)',
   },
