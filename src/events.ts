@@ -124,12 +124,13 @@ export const EVENTS: EventMap = {
     'ColonyInitialised(address,address,address)': {
       signature: 'ColonyInitialised(address,address,address)',
     },
-     // eslint-disable-next-line max-len
-    'ColonyFundsMovedBetweenFundingPots(address,uint256,uint256,uint256,address)': {
-      signature:
-        // eslint-disable-next-line max-len
-        'ColonyFundsMovedBetweenFundingPots(address,uint256,uint256,uint256,address)',
-    },
+    // eslint-disable-next-line max-len
+    'ColonyFundsMovedBetweenFundingPots(address,uint256,uint256,uint256,address)':
+      {
+        signature:
+          // eslint-disable-next-line max-len
+          'ColonyFundsMovedBetweenFundingPots(address,uint256,uint256,uint256,address)',
+      },
     'ColonyFundsClaimed(address,address,uint256,uint256)': {
       signature: 'ColonyFundsClaimed(address,address,uint256,uint256)',
     },
@@ -203,7 +204,8 @@ export const EVENTS: EventMap = {
       signature: 'ExpenditureSkillSet(address,uint256,uint256,uint256)',
     },
     'ExpenditurePayoutSet(address,uint256,uint256,address,uint256)': {
-      signature: 'ExpenditurePayoutSet(address,uint256,uint256,address,uint256)',
+      signature:
+        'ExpenditurePayoutSet(address,uint256,uint256,address,uint256)',
     },
     'Annotation(address,bytes32,string)': {
       signature: 'Annotation(address,bytes32,string)',
@@ -310,15 +312,12 @@ export const EVENTS: EventMap = {
     },
     'MetaTransactionExecuted(address,address,bytes)': {
       signature: 'MetaTransactionExecuted(address,address,bytes)',
-    },  
+    },
   },
   OneTxPayment: {
     'OneTxPaymentMade(address,uint256,uint256)': {
       signature: 'OneTxPaymentMade(address,uint256,uint256)',
       // connectedEvents: [''],
-    },
-    'OneTxPaymentMade': {
-      signature: 'OneTxPaymentMade',
     },
   },
   VotingReputation: {
@@ -357,6 +356,6 @@ export const EVENTS: EventMap = {
     },
     'MetaTransactionExecuted(address,address,bytes)': {
       signature: 'MetaTransactionExecuted(address,address,bytes)',
-    },  
+    },
   },
 };
