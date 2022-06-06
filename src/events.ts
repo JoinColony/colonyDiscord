@@ -12,352 +12,351 @@ type EventMap = {
   };
 };
 
-// FIXME: event signature needs to be the key. Maybe it will be easier to type then
+// event signature needs to be the key. Maybe it will be easier to type then
 export const EVENTS: EventMap = {
   ColonyNetwork: {
     // Common network events
-    ColonyNetworkInitialised: {
+    'ColonyNetworkInitialised(address)': {
       signature: 'ColonyNetworkInitialised(address)',
     },
-    ColonyAdded: {
+    'ColonyAdded(uint256,address,address)': {
       signature: 'ColonyAdded(uint256,address,address)',
     },
-    SkillAdded: {
+    'SkillAdded(uint256,uint256)': {
       signature: 'SkillAdded(uint256,uint256)',
     },
-    TokenAuthorityDeployed: {
+    'TokenAuthorityDeployed(address)': {
       signature: 'TokenAuthorityDeployed(address)',
     },
-    TokenDeployed: {
+    'TokenDeployed(address)': {
       signature: 'TokenDeployed(address)',
     },
     // Less common network events
-    TokenLockingAddressSet: {
+    'TokenLockingAddressSet(address)': {
       signature: 'TokenLockingAddressSet(address)',
     },
-    MiningCycleResolverSet: {
+    'MiningCycleResolverSet(address)': {
       signature: 'MiningCycleResolverSet(address)',
     },
-    NetworkFeeInverseSet: {
+    'NetworkFeeInverseSet(uint256)': {
       signature: 'NetworkFeeInverseSet(uint256)',
     },
-    ColonyVersionAdded: {
+    'ColonyVersionAdded(uint256,address)': {
       signature: 'ColonyVersionAdded(uint256,address)',
     },
-    MetaColonyCreated: {
+    'MetaColonyCreated(address,address,uint256)': {
       signature: 'MetaColonyCreated(address,address,uint256)',
     },
-    AuctionCreated: {
+    'AuctionCreated(address,address,uint256)': {
       signature: 'AuctionCreated(address,address,uint256)',
     },
-    ReputationMiningInitialised: {
+    'ReputationMiningInitialised(address)': {
       signature: 'ReputationMiningInitialised(address)',
     },
-    ReputationMiningCycleComplete: {
+    'ReputationMiningCycleComplete(bytes32,uint256)': {
       signature: 'ReputationMiningCycleComplete(bytes32,uint256)',
     },
-    ReputationRootHashSet: {
+    'ReputationRootHashSet(bytes32,uint256,address[],uint256)': {
       signature: 'ReputationRootHashSet(bytes32,uint256,address[],uint256)',
     },
-    UserLabelRegistered: {
+    'UserLabelRegistered(address,bytes32)': {
       signature: 'UserLabelRegistered(address,bytes32)',
     },
-    ColonyLabelRegistered: {
+    'ColonyLabelRegistered(address,bytes32)': {
       signature: 'ColonyLabelRegistered(address,bytes32)',
     },
-    RecoveryRoleSet: {
+    'RecoveryRoleSet(address,bool)': {
       signature: 'RecoveryRoleSet(address,bool)',
     },
-    ExtensionAddedToNetwork: {
+    'ExtensionAddedToNetwork(bytes32,uint256)': {
       signature: 'ExtensionAddedToNetwork(bytes32,uint256)',
     },
-    ExtensionDeprecated: {
+    'ExtensionDeprecated(bytes32,address,bool)': {
       signature: 'ExtensionDeprecated(bytes32,address,bool)',
     },
-    ExtensionInstalled: {
+    'ExtensionInstalled(bytes32,address,uint256)': {
       signature: 'ExtensionInstalled(bytes32,address,uint256)',
     },
-    ExtensionUninstalled: {
+    'ExtensionUninstalled(bytes32,address)': {
       signature: 'ExtensionUninstalled(bytes32,address)',
     },
-    ExtensionUpgraded: {
+    'ExtensionUpgraded(bytes32,address,uint256)': {
       signature: 'ExtensionUpgraded(bytes32,address,uint256)',
     },
-    RecoveryModeEntered: {
+    'RecoveryModeEntered(address)': {
       signature: 'RecoveryModeEntered(address)',
     },
-    RecoveryModeExitApproved: {
+    'RecoveryModeExitApproved(address)': {
       signature: 'RecoveryModeExitApproved(address)',
     },
-    RecoveryModeExited: {
+    'RecoveryModeExited(address)': {
       signature: 'RecoveryModeExited(address)',
     },
-    RecoveryStorageSlotSet: {
+    'RecoveryStorageSlotSet(address,uint256,bytes32,bytes32)': {
       signature: 'RecoveryStorageSlotSet(address,uint256,bytes32,bytes32)',
     },
-    RegistrarInitialised: {
+    'RegistrarInitialised(address,bytes32)': {
       signature: 'RegistrarInitialised(address,bytes32)',
     },
-    ReputationMinerPenalised: {
+    'ReputationMinerPenalised(address,uint256)': {
       signature: 'ReputationMinerPenalised(address,uint256)',
     },
-    ReputationMiningRewardSet: {
+    'ReputationMiningRewardSet(uint256)': {
       signature: 'ReputationMiningRewardSet(uint256)',
     },
-    TokenWhitelisted: {
+    'TokenWhitelisted(address,bool)': {
       signature: 'TokenWhitelisted(address,bool)',
     },
-    MetaTransactionExecuted: {
+    'MetaTransactionExecuted(address,address,bytes)': {
       signature: 'MetaTransactionExecuted(address,address,bytes)',
     },
   },
   Colony: {
     // Common Colony events
-    DomainAdded: {
+    'DomainAdded(address,uint256)': {
       signature: 'DomainAdded(address,uint256)',
       connectedEvents: ['DomainMetadata', 'Annotation'],
     },
-    DomainMetadata: {
+    'DomainMetadata(address,uint256,string)': {
       signature: 'DomainMetadata(address,uint256,string)',
       auxiliaryEvent: true,
     },
-    ColonyInitialised: {
+    'ColonyInitialised(address,address,address)': {
       signature: 'ColonyInitialised(address,address,address)',
     },
-    ColonyFundsMovedBetweenFundingPots: {
+     // eslint-disable-next-line max-len
+    'ColonyFundsMovedBetweenFundingPots(address,uint256,uint256,uint256,address)': {
       signature:
         // eslint-disable-next-line max-len
         'ColonyFundsMovedBetweenFundingPots(address,uint256,uint256,uint256,address)',
     },
-    ColonyFundsClaimed: {
+    'ColonyFundsClaimed(address,address,uint256,uint256)': {
       signature: 'ColonyFundsClaimed(address,address,uint256,uint256)',
     },
-    RewardPayoutCycleStarted: {
+    'RewardPayoutCycleStarted(address,uint256)': {
       signature: 'RewardPayoutCycleStarted(address,uint256)',
     },
-    RewardPayoutCycleEnded: {
+    'RewardPayoutCycleEnded(address,uint256)': {
       signature: 'RewardPayoutCycleEnded(address,uint256)',
     },
-    RewardPayoutClaimed: {
+    'RewardPayoutClaimed(uint256,address,uint256,uint256)': {
       signature: 'RewardPayoutClaimed(uint256,address,uint256,uint256)',
     },
-    PaymentAdded: {
+    'PaymentAdded(address,uint256)': {
       signature: 'PaymentAdded(address,uint256)',
     },
-    TaskAdded: {
+    'TaskAdded(address,uint256)': {
       signature: 'TaskAdded(address,uint256)',
     },
-    TaskBriefSet: {
+    'TaskBriefSet(uint256,bytes32)': {
       signature: 'TaskBriefSet(uint256,bytes32)',
     },
-    TaskDueDateSet: {
+    'TaskDueDateSet(uint256,uint256)': {
       signature: 'TaskDueDateSet(uint256,uint256)',
     },
-    TaskDomainSet: {
+    'TaskDomainSet(uint256,uint256)': {
       signature: 'TaskDomainSet(uint256,uint256)',
     },
-    TaskSkillSet: {
+    'TaskSkillSet(uint256,uint256)': {
       signature: 'TaskSkillSet(uint256,uint256)',
     },
-    TaskRoleUserSet: {
+    'TaskRoleUserSet(uint256,uint8,address)': {
       signature: 'TaskRoleUserSet(uint256,uint8,address)',
     },
-    TaskPayoutSet: {
+    'TaskPayoutSet(uint256,uint8,address,uint256)': {
       signature: 'TaskPayoutSet(uint256,uint8,address,uint256)',
     },
-    TaskDeliverableSubmitted: {
+    'TaskDeliverableSubmitted(address,uint256,bytes32)': {
       signature: 'TaskDeliverableSubmitted(address,uint256,bytes32)',
     },
-    TaskCompleted: {
+    'TaskCompleted(address,uint256)': {
       signature: 'TaskCompleted(address,uint256)',
     },
-    TaskWorkRatingRevealed: {
+    'TaskWorkRatingRevealed(address,uint256,uint8,uint8)': {
       signature: 'TaskWorkRatingRevealed(address,uint256,uint8,uint8)',
     },
-    TaskFinalized: {
+    'TaskFinalized(address,uint256)': {
       signature: 'TaskFinalized(address,uint256)',
     },
-    PayoutClaimed: {
+    'PayoutClaimed(address,uint256,address,uint256)': {
       signature: 'PayoutClaimed(address,uint256,address,uint256)',
     },
-    TaskCanceled: {
+    'TaskCanceled(uint256)': {
       signature: 'TaskCanceled(uint256)',
     },
-    ExpenditureAdded: {
+    'ExpenditureAdded(address,uint256)': {
       signature: 'ExpenditureAdded(address,uint256)',
     },
-    ExpenditureTransferred: {
+    'ExpenditureTransferred(address,uint256,address)': {
       signature: 'ExpenditureTransferred(address,uint256,address)',
     },
-    ExpenditureCancelled: {
+    'ExpenditureCancelled(address,uint256)': {
       signature: 'ExpenditureCancelled(address,uint256)',
     },
-    ExpenditureFinalized: {
+    'ExpenditureFinalized(address,uint256)': {
       signature: 'ExpenditureFinalized(address,uint256)',
     },
-    ExpenditureRecipientSet: {
+    'ExpenditureRecipientSet(address,uint256,uint256,address)': {
       signature: 'ExpenditureRecipientSet(address,uint256,uint256,address)',
     },
-    ExpenditureSkillSet: {
+    'ExpenditureSkillSet(address,uint256,uint256,uint256)': {
       signature: 'ExpenditureSkillSet(address,uint256,uint256,uint256)',
     },
-    ExpenditurePayoutSet: {
-      signature:
-        'ExpenditurePayoutSet(address,uint256,uint256,address,uint256)',
+    'ExpenditurePayoutSet(address,uint256,uint256,address,uint256)': {
+      signature: 'ExpenditurePayoutSet(address,uint256,uint256,address,uint256)',
     },
-    Annotation: {
+    'Annotation(address,bytes32,string)': {
       signature: 'Annotation(address,bytes32,string)',
-      auxiliaryEvent: true,
     },
-    PaymentFinalized: {
+    'PaymentFinalized(address,uint256)': {
       signature: 'PaymentFinalized(address,uint256)',
     },
-    PaymentPayoutSet: {
+    'PaymentPayoutSet(address,uint256,address,uint256)': {
       signature: 'PaymentPayoutSet(address,uint256,address,uint256)',
     },
-    PaymentRecipientSet: {
+    'PaymentRecipientSet(address,uint256,address)': {
       signature: 'PaymentRecipientSet(address,uint256,address)',
     },
-    PaymentSkillSet: {
+    'PaymentSkillSet(address,uint256,uint256)': {
       signature: 'PaymentSkillSet(address,uint256,uint256)',
     },
-    ColonyFundingRoleSet: {
+    'ColonyFundingRoleSet(address,bool)': {
       signature: 'ColonyFundingRoleSet(address,bool)',
     },
-    ColonyAdministrationRoleSet: {
+    'ColonyAdministrationRoleSet(address,bool)': {
       signature: 'ColonyAdministrationRoleSet(address,bool)',
     },
-    ColonyArchitectureRoleSet: {
+    'ColonyArchitectureRoleSet(address,bool)': {
       signature: 'ColonyArchitectureRoleSet(address,bool)',
     },
-    ColonyRootRoleSet: {
+    'ColonyRootRoleSet(address,bool)': {
       signature: 'ColonyRootRoleSet(address,bool)',
     },
     // Less common Colony events
-    ColonyBootstrapped: {
+    'ColonyBootstrapped(address,address[],int256[])': {
       signature: 'ColonyBootstrapped(address,address[],int256[])',
     },
-    ColonyUpgraded: {
+    'ColonyUpgraded(address,uint256,uint256)': {
       signature: 'ColonyUpgraded(address,uint256,uint256)',
     },
-    ColonyRoleSet: {
+    'ColonyRoleSet(address,address,uint256,uint8,bool)': {
       signature: 'ColonyRoleSet(address,address,uint256,uint8,bool)',
     },
-    ColonyRewardInverseSet: {
+    'ColonyRewardInverseSet(address,uint256)': {
       signature: 'ColonyRewardInverseSet(address,uint256)',
     },
-    FundingPotAdded: {
+    'FundingPotAdded(uint256)': {
       signature: 'FundingPotAdded(uint256)',
     },
-    RecoveryRoleSet: {
+    'RecoveryRoleSet(address,bool)': {
       signature: 'RecoveryRoleSet(address,bool)',
     },
-    ColonyMetadata: {
+    'ColonyMetadata(address,string)': {
       signature: 'ColonyMetadata(address,string)',
     },
-    RecoveryModeEntered: {
+    'RecoveryModeEntered(address)': {
       signature: 'RecoveryModeEntered(address)',
     },
-    RecoveryModeExitApproved: {
+    'RecoveryModeExitApproved(address)': {
       signature: 'RecoveryModeExitApproved(address)',
     },
-    RecoveryModeExited: {
+    'RecoveryModeExited(address)': {
       signature: 'RecoveryModeExited(address)',
     },
-    RecoveryStorageSlotSet: {
+    'RecoveryStorageSlotSet(address,uint256,bytes32,bytes32)': {
       signature: 'RecoveryStorageSlotSet(address,uint256,bytes32,bytes32)',
     },
-    TaskChangedViaSignatures: {
+    'TaskChangedViaSignatures(address[])': {
       signature: 'TaskChangedViaSignatures(address[])',
     },
-    TokenUnlocked: {
+    'TokenUnlocked(address)': {
       signature: 'TokenUnlocked(address)',
     },
-    TokensBurned: {
+    'TokensBurned(address,address,uint256)': {
       signature: 'TokensBurned(address,address,uint256)',
     },
-    TokensMinted: {
+    'TokensMinted(address,address,uint256)': {
       signature: 'TokensMinted(address,address,uint256)',
     },
-    ArbitraryReputationUpdate: {
+    'ArbitraryReputationUpdate(address,address,uint256,int256)': {
       signature: 'ArbitraryReputationUpdate(address,address,uint256,int256)',
     },
-    ExpenditureClaimDelaySet: {
+    'ExpenditureClaimDelaySet(address,uint256,uint256,uint256)': {
       signature: 'ExpenditureClaimDelaySet(address,uint256,uint256,uint256)',
     },
-    ExpenditureGlobalClaimDelaySet: {
+    'ExpenditureGlobalClaimDelaySet(address,uint256)': {
       signature: 'ExpenditureGlobalClaimDelaySet(address,uint256)',
     },
-    ExpenditureLocked: {
+    'ExpenditureLocked(address,uint256)': {
       signature: 'ExpenditureLocked(address,uint256)',
     },
-    ExpenditureMetadataSet: {
+    'ExpenditureMetadataSet(address,uint256,string)': {
       signature: 'ExpenditureMetadataSet(address,uint256,string)',
     },
-    ExpenditurePayoutModifierSet: {
+    'ExpenditurePayoutModifierSet(address,uint256,uint256,int256)': {
       signature: 'ExpenditurePayoutModifierSet(address,uint256,uint256,int256)',
     },
-    ColonyMetadataDelta: {
+    'ColonyMetadataDelta(address,string)': {
       signature: 'ColonyMetadataDelta(address,string)',
     },
-    DomainDeprecated: {
+    'DomainDeprecated(address,uint256,bool)': {
       signature: 'DomainDeprecated(address,uint256,bool)',
     },
-    LocalSkillAdded: {
+    'LocalSkillAdded(address,uint256)': {
       signature: 'LocalSkillAdded(address,uint256)',
     },
-    LocalSkillDeprecated: {
+    'LocalSkillDeprecated(address,uint256,bool)': {
       signature: 'LocalSkillDeprecated(address,uint256,bool)',
     },
-    MetaTransactionExecuted: {
+    'MetaTransactionExecuted(address,address,bytes)': {
       signature: 'MetaTransactionExecuted(address,address,bytes)',
-    },
+    },  
   },
   OneTxPayment: {
     'OneTxPaymentMade(address,uint256,uint256)': {
       signature: 'OneTxPaymentMade(address,uint256,uint256)',
       // connectedEvents: [''],
     },
-    OneTxPaymentMade: {
+    'OneTxPaymentMade': {
       signature: 'OneTxPaymentMade',
     },
   },
   VotingReputation: {
-    ExtensionInitialised: {
+    'ExtensionInitialised()': {
       signature: 'ExtensionInitialised()',
     },
-    LogSetAuthority: {
+    'LogSetAuthority(address)': {
       signature: 'LogSetAuthority(address)',
     },
-    LogSetOwner: {
+    'LogSetOwner(address)': {
       signature: 'LogSetOwner(address)',
     },
-    MotionCreated: {
+    'MotionCreated(uint256,address,uint256)': {
       signature: 'MotionCreated(uint256,address,uint256)',
     },
-    MotionEscalated: {
+    'MotionEscalated(uint256,address,uint256,uint256)': {
       signature: 'MotionEscalated(uint256,address,uint256,uint256)',
     },
-    MotionEventSet: {
+    'MotionEventSet(uint256,uint256)': {
       signature: 'MotionEventSet(uint256,uint256)',
     },
-    MotionFinalized: {
+    'MotionFinalized(uint256,bytes,bool)': {
       signature: 'MotionFinalized(uint256,bytes,bool)',
     },
-    MotionRewardClaimed: {
+    'MotionRewardClaimed(uint256,address,uint256,uint256)': {
       signature: 'MotionRewardClaimed(uint256,address,uint256,uint256)',
     },
-    MotionStaked: {
+    'MotionStaked(uint256,address,uint256,uint256)': {
       signature: 'MotionStaked(uint256,address,uint256,uint256)',
     },
-    MotionVoteRevealed: {
+    'MotionVoteRevealed(uint256,address,uint256)': {
       signature: 'MotionVoteRevealed(uint256,address,uint256)',
     },
-    MotionVoteSubmitted: {
+    'MotionVoteSubmitted(uint256,address)': {
       signature: 'MotionVoteSubmitted(uint256,address)',
     },
-    MetaTransactionExecuted: {
+    'MetaTransactionExecuted(address,address,bytes)': {
       signature: 'MetaTransactionExecuted(address,address,bytes)',
-    },
+    },  
   },
 };
