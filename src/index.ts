@@ -3,7 +3,7 @@ import { ColonyEventManager } from '@colony/sdk';
 import { Client, Intents, Message } from 'discord.js';
 import { providers } from 'ethers';
 
-import { ColonyEvents } from './events';
+import { EVENTS } from './events';
 
 const { DISCORD_TOKEN } = process.env;
 
@@ -20,7 +20,12 @@ client.once('ready', async () => {
 
   const eventList = eventManager.createMultiFilter(
     eventManager.eventSources.Colony,
-    [ColonyEvents.DomainAdded.signature, ColonyEvents.DomainMetadata.signature],
+    [
+      // @ts-ignore: We're going to fix this
+      EVENTS.Colony['DomainAdded(address,uint256)'].signature,
+      // @ts-ignore: We're going to fix this
+      EVENTS.Colony['DomainMetadata(address,uint256,string)'].signature,
+    ],
     '0x6899e0775f56e078C4172B86D411a0623ccCaB24',
   );
 
@@ -38,11 +43,16 @@ client.once('ready', async () => {
         if (chan?.isText()) {
           let message: Message<boolean> | undefined;
           const domainAddedEvent = events.find(
-            ({ eventName }) => eventName === ColonyEvents.DomainAdded.signature,
+            ({ eventName }) =>
+              eventName ===
+              // @ts-ignore: We're going to fix this
+              EVENTS.Colony['DomainAdded(address,uint256)'].signature,
           );
           const domainMetadataEvent = events.find(
             ({ eventName }) =>
-              eventName === ColonyEvents.DomainMetadata.signature,
+              eventName ===
+              // @ts-ignore: We're going to fix this
+              EVENTS.Colony['DomainMetadata(address,uint256,string)'].signature,
           );
           if (domainAddedEvent) {
             message = await chan.send(
