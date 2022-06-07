@@ -1,9 +1,9 @@
 import { EventSources, EventSource } from '@colony/sdk';
 
-interface EventDescription<T extends EventSource> {
+export interface EventDescription<T extends EventSource> {
   signature: keyof T['filters'];
-  auxiliaryEvent?: true;
-  connectedEvents?: Array<keyof T['filters']>;
+  /** An event signature this event is connected to (if applicable) */
+  group?: keyof typeof EVENT_GROUPS;
 }
 
 type EventMap = {
@@ -12,7 +12,38 @@ type EventMap = {
   };
 };
 
-// event signature needs to be the key. Maybe it will be easier to type then
+export type EventKey<T extends keyof EventSources> = keyof typeof EVENTS[T];
+
+interface EventGroup {
+  events: Record<
+    string,
+    {
+      /** The keyId indices are the indices of the least amount of event arguments that can uniquely identify an event within a contract
+       * Example: for the event signature `DomainAdded(address,uint256)` the keyId `[1]`
+       * identifies the domain within the Colony contract by the second argument which is
+       * the domainId (`uint256`).
+       * Within a group they resulting key (after resolving it) always has to be the same
+       */
+      keyId: number[];
+    }
+  >;
+  messageText: string;
+}
+
+export const EVENT_GROUPS: Record<string, EventGroup> = {
+  DomainAdded: {
+    events: {
+      'DomainAdded(address,uint256)': {
+        keyId: [1],
+      },
+      'DomainMetadata(address,uint256,string)': {
+        keyId: [1],
+      },
+    },
+    messageText: '{Foo} Bar',
+  },
+};
+
 export const EVENTS: EventMap = {
   ColonyNetwork: {
     // Common network events
@@ -115,11 +146,11 @@ export const EVENTS: EventMap = {
     // Common Colony events
     'DomainAdded(address,uint256)': {
       signature: 'DomainAdded(address,uint256)',
-      connectedEvents: ['DomainMetadata', 'Annotation'],
+      group: 'DomainAdded',
     },
     'DomainMetadata(address,uint256,string)': {
       signature: 'DomainMetadata(address,uint256,string)',
-      auxiliaryEvent: true,
+      group: 'DomainAdded',
     },
     'ColonyInitialised(address,address,address)': {
       signature: 'ColonyInitialised(address,address,address)',
