@@ -1,11 +1,15 @@
 import mongoose from 'mongoose';
 
 const colonyEventSchema = new mongoose.Schema({
-  colonyEvent: {
+  colonyAddress: {
     type: String,
     required: true,
   },
-  discordServerChannels: [
+  topic: {
+    type: String,
+    required: true,
+  },
+  discordChannels: [
     {
       type: String,
     },
